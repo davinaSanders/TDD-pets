@@ -33,7 +33,7 @@ end
 def find_pet_by_name(hash, name)
  for pets in hash[:pets]
   if (pets[:name] == name)
-    return pets
+    return name
   end
 end
 return nil
@@ -83,5 +83,24 @@ def add_pet_to_customer(customer, hash)
 end
 
 def customer_can_afford_pet(customer, hash)
-  customer
+  if customer[:cash] >= hash[:price]
+    return true
+  else
+    return false
+  end
 end
+
+#ternary statement?
+
+def sell_pet_to_customer(hash, pet, customer)
+  # new_pet_for_craig = find_pet_by_name(@pet_shop, "Arthur")
+  # customer[:pets].push(new_pet_for_craig)
+    for petsh in hash[:pets]
+      if petsh[:name] == pet
+         customer[:pets].push(petsh)
+         hash[:pets].delete(petsh)
+         hash[:admin][:pets_sold] += customer[:pets].count
+         customer[:cash] -= petsh[:price] 
+      end
+    end
+  end
