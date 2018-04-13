@@ -102,6 +102,8 @@ def sell_pet_to_customer(hash, pet, customer)
          hash[:admin][:pets_sold] += customer[:pets].count
          customer[:cash] -= petsh[:price]
          hash[:admin][:total_cash] += petsh[:price]
+       else
       end
+      false
     end
   end
