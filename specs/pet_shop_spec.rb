@@ -198,6 +198,7 @@ class TestPetShop < Minitest::Test
     assert_equal(100, customer_cash(customer))
     # craig needs to pay for pet
     assert_equal(1900, total_cash(@pet_shop))
+    #
   end
 #
   # def test_sell_pet_to_customer__pet_not_found
