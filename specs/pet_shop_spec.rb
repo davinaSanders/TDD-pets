@@ -123,7 +123,7 @@ class TestPetShop < Minitest::Test
 
   def test_find_pet_by_name__returns_pet
     pet = find_pet_by_name(@pet_shop, "Arthur")
-    assert_equal("Arthur", pet)
+    assert_equal("Arthur", pet[:name])
   end
   # this test was wrong changes pet[:name] to pet
   #
@@ -219,11 +219,14 @@ class TestPetShop < Minitest::Test
 
     sell_pet_to_customer(@pet_shop, pet, customer)
 
-    assert_equal(1, customer_pet_count(customer))
-    assert_equal(1, pets_sold(@pet_shop))
-    assert_equal(-850, customer_cash(customer))
-    #
-    assert_equal(1900, total_cash(@pet_shop))
+    assert_equal(0, customer_pet_count(customer))
+    # how many pets does the customer have (don't sell pet if can't afford)
+    assert_equal(0, pets_sold(@pet_shop))
+    # check the number in pets_sold (which should be 0 because don't sell pet to customer 1)
+    assert_equal(50, customer_cash(customer))
+    # customer cash which should be the same
+    assert_equal(1000, total_cash(@pet_shop))
+    # total_cash should be the same
   end
 
 end

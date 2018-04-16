@@ -7,7 +7,7 @@ def total_cash(hash)
 end
 
 def add_or_remove_cash(hash, value)
-   hash[:admin][:total_cash] += value
+   return hash[:admin][:total_cash] += value
 end
 
 def pets_sold(hash)
@@ -15,11 +15,11 @@ def pets_sold(hash)
 end
 
 def increase_pets_sold(hash, num)
-  hash[:admin][:pets_sold] += 2
+  return hash[:admin][:pets_sold] += num
 end
 
 def stock_count(hash)
-  hash[:pets].length
+  return hash[:pets].length
 end
 
 def pets_by_breed(hash, breed)
@@ -33,7 +33,7 @@ end
 def find_pet_by_name(hash, name)
  for pets in hash[:pets]
   if (pets[:name] == name)
-    return name
+    return pets
   end
 end
 return nil
@@ -48,13 +48,16 @@ end
 #
 # end
 #
+
 def remove_pet_by_name(hash, name)
   for pets in hash[:pets]
-  if name == pets[:name]
-    pets[:name] = []
+    if name == pets[:name]
+    pets[:name] = " "
+    end
+  end
 end
-end
-end
+
+
 # why doesnt delete method work?
 
 def add_pet_to_stock(hash, pet_hash)
@@ -83,11 +86,7 @@ def add_pet_to_customer(customer, hash)
 end
 
 def customer_can_afford_pet(customer, hash)
-  if customer[:cash] >= hash[:price]
-    return true
-  else
-    return false
-  end
+  return customer[:cash] >= hash[:price]
 end
 
 #ternary statement?
@@ -95,15 +94,27 @@ end
 def sell_pet_to_customer(hash, pet, customer)
   # new_pet_for_craig = find_pet_by_name(@pet_shop, "Arthur")
   # customer[:pets].push(new_pet_for_craig)
+  if pet != nil && customer_can_afford_pet(customer, pet)
     for petsh in hash[:pets]
-      if petsh[:name] == pet
+      if petsh[:name] == pet[:name]
          customer[:pets].push(petsh)
          hash[:pets].delete(petsh)
          hash[:admin][:pets_sold] += customer[:pets].count
          customer[:cash] -= petsh[:price]
          hash[:admin][:total_cash] += petsh[:price]
-       else
-         false
-      end
-    end
+       end
+     end
   end
+end
+
+
+# def sell_pet_to_customer(shop, pet, customer)
+#   if pet != nil && customer_can_afford_pet(customer, pet)
+#     add_pet_to_customer(customer, pet)
+#     customer_cash(customer)
+#     increase_pets_sold(shop, 1)
+#     total_price = pet[:price]
+#     remove_customer_cash(customer, total_price)
+#     add_or_remove_cash(shop, total_price)
+#   end
+# end
