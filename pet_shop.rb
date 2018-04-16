@@ -82,7 +82,7 @@ def customer_pet_count(customer)
 end
 
 def add_pet_to_customer(customer, hash)
-  customer[:pets].push(hash).count
+  return customer[:pets].push(hash)
 end
 
 def customer_can_afford_pet(customer, hash)
